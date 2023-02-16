@@ -25,12 +25,12 @@ const SearchBox = () => {
               />
               <FomrikBimehAutoComplete
                 name={"bimeh"}
-                placeholder={"بیمت چیه ؟"}
-                trailingIcon={
-                  <NewspaperIcon className={"w-6 text-base-gray "} />
-                }
+                // placeholder={"بیمت چیه ؟"}
+                // trailingIcon={
+                //   <NewspaperIcon className={"w-6 text-base-gray "} />
+                // }
                 className={"w-[300px]  h-[80px] !leading-8 "}
-                textClassName={"text-[18px] pr-[4rem] "}
+                // textClassName={"text-[18px] pr-[4rem] "}
               />{" "}
               <FormikCityAutoComplete
                 name={"city"}

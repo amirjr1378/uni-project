@@ -18,6 +18,9 @@ module.exports = {
         "red-dark": "#B31E23",
         "sky-blue": "#55ABF8",
         "sidebar-bg": "#003959",
+        "gray-border": "#F7F7F7",
+
+        "disable-gray": "#F5F5F5",
       },
       borderRadius: {
         1: "0.25rem",

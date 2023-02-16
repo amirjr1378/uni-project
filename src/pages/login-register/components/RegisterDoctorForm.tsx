@@ -8,7 +8,7 @@ import Modal, { ModalProps } from "../../../components/base/Modal";
 const RegisterDoctorForm = (
   props: Pick<ModalProps, "visible" | "onClose" | "onSubmit">
 ) => {
-  const { visible, onClose, onSubmit } = props;
+  const { visible, onClose } = props;
   const registerDoc = (data: RegisterDoctorDto) => {
     Api.registerDoctor.registerDoctorCreate(data).then((res) => res?.data);
   };

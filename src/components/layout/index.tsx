@@ -1,20 +1,58 @@
 import cx from "classnames";
-import Sidebar from "../sidebar";
-import { ReactNode } from "react";
+import React, { FC, useEffect, useState } from "react";
 
-const Layout = ({ children }: { children?: ReactNode }) => {
+// import Navbar from './navbar'
+import { NavbarProps } from "./types/nav-bar-prop.type";
+import { SidebarProps } from "./types/sidebar-props.type";
+import { Sidebar } from "./sidebar/sidebar";
+import { useLocation } from "react-router-dom";
+
+export type LayoutConfigProps = {
+  title?: string;
+  sidebarProps?: SidebarProps;
+  navbarProps?: NavbarProps;
+  children: React.ReactNode;
+};
+
+const Layout: FC<LayoutConfigProps> = ({
+  children,
+  title,
+  sidebarProps,
+  navbarProps,
+}) => {
+  const location = useLocation();
+  const [showSidebar, setShowSideBar] = useState<boolean>(false);
+
+  useEffect(() => {
+    console.log("location .pathname", location.pathname);
+    if (location.pathname === "/" || location.pathname === "/login")
+      setShowSideBar(false);
+    else setShowSideBar(true);
+  }, [location.pathname]);
+
   return (
     <div
       className={cx(
-        " overflow-x-hidden min-h-screen pt-navbar-height pr-sidebar-width min-h-screen "
+        "bg-[#E5E5E5] overflow-x-hidden min-h-screen pt-navbar-height min-h-screen bg-[#f5f5f7]",
+        showSidebar && "pr-sidebar-width"
       )}
     >
-      <div className="flex ">
-        <Sidebar />
+      {/*<Navbar {...navbarProps} />*/}
 
-        <div className="px-6 w-full flex-1 ">{children}</div>
+      <div className="flex ">
+        {showSidebar && <Sidebar {...sidebarProps} />}
+
+        <div className="  flex-1 mx-6 ">
+          {title ? (
+            <p className="text-[#0D062D] text-3xl leading-[50px] pt-20 font-bold ">
+              {title}
+            </p>
+          ) : null}
+          <div className="  ">{children}</div>
+        </div>
       </div>
     </div>
   );
 };
+
 export default Layout;

@@ -2,9 +2,10 @@ import SelectWithSearch, { SelectWithSearchProps } from "../SelectWithSearch";
 import { useField } from "formik";
 import BaseApi from "../../api/Api";
 import FetchData from "../FetchData";
+import BaseSelect, { SelectPropTypes } from "../base/base-select";
 
 export type FormikSelectBimehPrp = Omit<
-  SelectWithSearchProps,
+  SelectPropTypes,
   "options" | "onChange" | "displayValue" | "value"
 > & {
   name: string;
@@ -20,24 +21,21 @@ const FomrikBimehAutoComplete = (prp: FormikSelectBimehPrp) => {
     return BaseApi?.getAllInsurances.getAllInsurancesList().then((res) => {
       return res?.data?.map((node) => ({
         label: node?.title || "",
-        value: node?.title || "",
-        node: node,
+        value: node?.id || "",
       }));
     });
   };
+
   return (
     <FetchData request={fetch} deps={[]}>
       {(opts) => {
         return (
-          <SelectWithSearch
+          <BaseSelect
             {...rest}
-            value={field?.value}
-            displayValue={(val) => val?.label}
-            onChange={(payload) => {
-              meta?.setValue({
-                label: payload?.node?.title || undefined,
-                value: payload?.node?.id || undefined,
-              });
+            // value={field?.value}
+            onSelect={(val, node) => {
+              console.log("adf", val);
+              meta.setValue(val);
             }}
             options={opts || []}
           />

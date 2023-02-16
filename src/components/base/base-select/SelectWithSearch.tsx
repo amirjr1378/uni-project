@@ -5,11 +5,10 @@ import {
   SearchIcon,
   XIcon,
 } from "@heroicons/react/solid";
-// import { debounce } from "lo";
+import { debounce } from "lodash";
 import { Fragment, ReactNode, useMemo, useState } from "react";
-import BaseLabel, { BaseLabelProps } from "./BaseLabel";
-import LoadingSpinner from "./loading/loading-spinner";
-import cx from "classnames";
+import BaseLabel, { BaseLabelProps } from "../../BaseLabel";
+import LoadingSpinner from "../../loading/loading-spinner";
 
 type OptionType = {
   label: ReactNode;
@@ -29,8 +28,6 @@ export type SelectWithSearchProps = {
   comboBoxContainerProps?: any;
   trailingIcon?: ReactNode;
   tabIndex?: number;
-  textClassName?: string;
-  placeholder?: string;
 };
 
 export default function SelectWithSearch(props: SelectWithSearchProps) {
@@ -46,8 +43,6 @@ export default function SelectWithSearch(props: SelectWithSearchProps) {
     trailingIcon,
     tabIndex,
     comboBoxContainerProps,
-    textClassName,
-    ...rest
   } = props;
   const [query, setQuery] = useState("");
 
@@ -59,30 +54,26 @@ export default function SelectWithSearch(props: SelectWithSearchProps) {
     <div className={className}>
       <BaseLabel {...labelProps}>{label}</BaseLabel>
       <Combobox {...comboBoxContainerProps} value={value} onChange={onChange}>
-        <div className="relative h-full">
-          <div className="relative w-full h-full cursor-default overflow-hidden bg-white text-right rounded-2">
+        <div className="relative mt-1">
+          <div className="relative w-full cursor-default overflow-hidden rounded-lg bg-white text-right border border-solid border-[#D0D0D0]">
             <Combobox.Input
-              {...rest}
               tabIndex={tabIndex}
-              className={cx(
-                "w-full h-full text-slate-600 border-none py-2 pl-8 pr-10 text-sm leading-[1.5rem] text-gray-900 focus:ring-0",
-                textClassName
-              )}
+              className="w-full border-none py-2 pl-8 pr-10 text-sm leading-[1.5rem] text-gray-900 focus:ring-0"
               displayValue={displayValue}
-              onChange={(event: any) => setQuery(event.target.value)}
+              onChange={debounce((event) => setQuery(event.target.value), 600)}
             />
             <Combobox.Button className="absolute inset-y-0 flex items-center pr-2 right-2">
               {trailingIcon ? (
                 trailingIcon
               ) : (
                 <SearchIcon
-                  className="h-6 w-6 text-[#9F9FA0] "
+                  className="h-4 w-4 text-[#9F9FA0]"
                   aria-hidden="true"
                 />
               )}
             </Combobox.Button>
 
-            {value ? (
+            {value && (
               <Combobox.Button
                 className="absolute inset-y-0 flex items-center pr-2 left-8"
                 onClick={() => {
@@ -91,7 +82,7 @@ export default function SelectWithSearch(props: SelectWithSearchProps) {
               >
                 <XIcon className="w-4 h-4 text-red-500" />
               </Combobox.Button>
-            ) : null}
+            )}
 
             <Combobox.Button className="absolute inset-y-0 flex items-center pr-2 left-2">
               {isLoading ? (

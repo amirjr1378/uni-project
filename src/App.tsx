@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { routes } from "./constants/routes";
 import { ToastContainer } from "react-toastify";
 import { CookiesProvider } from "react-cookie";
@@ -37,14 +37,21 @@ function App() {
       >
         <CookiesProvider>
           <CheckForAuth>
-            <Layout>
-              <Routes>
-                {routes.map((node) => (
-                  <Route key={node.path} {...node} />
-                ))}
-              </Routes>
-              {/*</div>*/}
-            </Layout>
+            <>
+              <Layout
+              // sidebarProps={{
+              //   hide:
+              //     location.pathname === "/" || location.pathname === "/login",
+              // }}
+              >
+                <Routes>
+                  {routes.map((node) => (
+                    <Route key={node.path} {...node} />
+                  ))}
+                </Routes>
+                {/*</div>*/}
+              </Layout>
+            </>
           </CheckForAuth>
         </CookiesProvider>
       </React.Suspense>
