@@ -1,6 +1,8 @@
 import bg from "./header.jpg";
 import SearchBox from "./SearchBox";
 import LoginRegister from "../login-register/components/LoginButton";
+import HighestDoctors from "./highest-doctors";
+import { useCookies } from "react-cookie";
 
 const Header = () => {
   return (
@@ -20,9 +22,7 @@ const Header = () => {
           }}
         >
           {/*--------------text-------------*/}
-          <div className={"w-full flex justify-end  !fixed pt-2 px-6"}>
-            <LoginRegister />
-          </div>
+
           {/*--------------------search*/}
           {/*<div className={" mt-4 inline bg-white flex h-[40px]"}>*/}
           {/*<DoctorTypAutocomplete />*/}
@@ -30,7 +30,8 @@ const Header = () => {
           {/*</div>*/}
         </div>
       </div>
-      <div>asdfsdf</div>
+
+      <HighestDoctors />
     </>
   );
 };

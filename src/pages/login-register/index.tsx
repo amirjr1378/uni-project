@@ -22,18 +22,14 @@ const LoginRegister = () => {
           backgroundImage: `url(${bg})`,
           backgroundSize: "cover",
           overflow: "hidden",
-          // backgroundColor: "gold",
           width: "100%",
           height: "100%",
-          // display: "block",
           backgroundRepeat: "no-repeat",
           backgroundPosition: "center",
           position: "fixed",
         }}
       >
         <div className={"w-1/2 h-full fixed bg-white left-0 flex items-center"}>
-          <DatePicker locale={"fa"} />
-
           <div
             className={
               "relative w-1/2 max-w-[450px] relative space-y-3 text-slate-600 mx-auto bg-white border rounded-5 p-3 shadow-lg divide-y-1"

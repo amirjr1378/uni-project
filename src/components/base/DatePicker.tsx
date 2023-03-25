@@ -22,6 +22,7 @@ export type DatePickerPropType = {
   hasInput?: boolean;
   textClassName?: string;
   inputClassName?: string;
+  tabIndex?: number;
 };
 
 const DatePicker = (props: DatePickerPropType) => {
@@ -36,6 +37,7 @@ const DatePicker = (props: DatePickerPropType) => {
     hasInput = false,
     inputClassName,
     textClassName,
+
     ...rest
   } = props;
   const [day, setDay] = React.useState<DayValue>(value);
@@ -75,7 +77,6 @@ const DatePicker = (props: DatePickerPropType) => {
         >
           <MaskInput
             readOnly={!hasInput}
-            tabIndex={-1}
             labelProps={labelProps}
             className={classNames(
               "w-full !border-0 !flex !items-center !p-0 !ltr"
@@ -85,7 +86,10 @@ const DatePicker = (props: DatePickerPropType) => {
               inputClassName
             )}
             mask={"0000/00/00"}
-            textClassName={classNames("!shadow-none !border-0", textClassName)}
+            textClassName={classNames(
+              "!shadow-none !border-0 outline-0",
+              textClassName
+            )}
             placeholder={placeholder}
             onAccept={(value: any) => {
               if (value.length === 10) {

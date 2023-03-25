@@ -2,7 +2,7 @@ import { Api } from "./ApiGlobals";
 import { Cookies } from "react-cookie";
 
 const BaseApi = new Api({
-  baseURL: "http://api.testappointment.ir",
+  baseURL: "https://api.drjavaherchian.ir/",
   timeout: 30000,
   // headers: { Authorization: "Bearer" + Cookies },
 });

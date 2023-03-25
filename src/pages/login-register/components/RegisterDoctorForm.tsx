@@ -16,6 +16,11 @@ const RegisterDoctorForm = (
     <Formik<RegisterDoctorDto>
       onSubmit={registerDoc}
       initialValues={{
+        categoryId: 0,
+        address: "",
+        insuranceIds: undefined,
+        birthDate: "",
+        shortDescription: "",
         city: "",
         password: "",
         email: "",

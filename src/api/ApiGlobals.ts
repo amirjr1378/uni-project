@@ -27,12 +27,7 @@ export interface CreateCommentDto {
 }
 
 /** @format int32 */
-export enum Gender {
-  Value1 = 1,
-  Value2 = 2,
-  Value3 = 3,
-  Value4 = 4,
-}
+export type Gender = 1 | 2 | 3 | 4;
 
 export interface GetAllCategoriesDto {
   /** @format int32 */
@@ -162,10 +157,13 @@ export interface RegisterDoctorDto {
    * @maxLength 150
    */
   lastName: string;
-  /** @maxLength 1500 */
-  address?: string | null;
+  /**
+   * @minLength 1
+   * @maxLength 1500
+   */
+  address: string;
   /** @format date-time */
-  birthDate?: string;
+  birthDate: string;
   /**
    * @minLength 1
    * @maxLength 10
@@ -173,7 +171,7 @@ export interface RegisterDoctorDto {
   nationalCode: string;
   gender: Gender;
   /** @format int32 */
-  categoryId?: number;
+  categoryId: number;
   /**
    * @minLength 1
    * @maxLength 150
@@ -238,10 +236,7 @@ export interface RegisterPatientDto {
 }
 
 /** @format int32 */
-export enum SessionStatus {
-  Value1 = 1,
-  Value2 = 2,
-}
+export type SessionStatus = 1 | 2;
 
 export interface UserLoginDto {
   /**
@@ -256,11 +251,18 @@ export interface UserLoginDto {
   password: string;
 }
 
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, HeadersDefaults, ResponseType } from "axios";
+import axios, {
+  AxiosInstance,
+  AxiosRequestConfig,
+  AxiosResponse,
+  HeadersDefaults,
+  ResponseType,
+} from "axios";
 
 export type QueryParamsType = Record<string | number, any>;
 
-export interface FullRequestParams extends Omit<AxiosRequestConfig, "data" | "params" | "url" | "responseType"> {
+export interface FullRequestParams
+  extends Omit<AxiosRequestConfig, "data" | "params" | "url" | "responseType"> {
   /** set parameter to `true` for call `securityWorker` for this request */
   secure?: boolean;
   /** request path */
@@ -275,11 +277,15 @@ export interface FullRequestParams extends Omit<AxiosRequestConfig, "data" | "pa
   body?: unknown;
 }
 
-export type RequestParams = Omit<FullRequestParams, "body" | "method" | "query" | "path">;
+export type RequestParams = Omit<
+  FullRequestParams,
+  "body" | "method" | "query" | "path"
+>;
 
-export interface ApiConfig<SecurityDataType = unknown> extends Omit<AxiosRequestConfig, "data" | "cancelToken"> {
+export interface ApiConfig<SecurityDataType = unknown>
+  extends Omit<AxiosRequestConfig, "data" | "cancelToken"> {
   securityWorker?: (
-    securityData: SecurityDataType | null,
+    securityData: SecurityDataType | null
   ) => Promise<AxiosRequestConfig | void> | AxiosRequestConfig | void;
   secure?: boolean;
   format?: ResponseType;
@@ -299,8 +305,16 @@ export class HttpClient<SecurityDataType = unknown> {
   private secure?: boolean;
   private format?: ResponseType;
 
-  constructor({ securityWorker, secure, format, ...axiosConfig }: ApiConfig<SecurityDataType> = {}) {
-    this.instance = axios.create({ ...axiosConfig, baseURL: axiosConfig.baseURL || "" });
+  constructor({
+    securityWorker,
+    secure,
+    format,
+    ...axiosConfig
+  }: ApiConfig<SecurityDataType> = {}) {
+    this.instance = axios.create({
+      ...axiosConfig,
+      baseURL: axiosConfig.baseURL || "",
+    });
     this.secure = secure;
     this.format = format;
     this.securityWorker = securityWorker;
@@ -310,7 +324,10 @@ export class HttpClient<SecurityDataType = unknown> {
     this.securityData = data;
   };
 
-  protected mergeRequestParams(params1: AxiosRequestConfig, params2?: AxiosRequestConfig): AxiosRequestConfig {
+  protected mergeRequestParams(
+    params1: AxiosRequestConfig,
+    params2?: AxiosRequestConfig
+  ): AxiosRequestConfig {
     const method = params1.method || (params2 && params2.method);
 
     return {
@@ -318,7 +335,11 @@ export class HttpClient<SecurityDataType = unknown> {
       ...params1,
       ...(params2 || {}),
       headers: {
-        ...((method && this.instance.defaults.headers[method.toLowerCase() as keyof HeadersDefaults]) || {}),
+        ...((method &&
+          this.instance.defaults.headers[
+            method.toLowerCase() as keyof HeadersDefaults
+          ]) ||
+          {}),
         ...(params1.headers || {}),
         ...((params2 && params2.headers) || {}),
       },
@@ -336,11 +357,15 @@ export class HttpClient<SecurityDataType = unknown> {
   protected createFormData(input: Record<string, unknown>): FormData {
     return Object.keys(input || {}).reduce((formData, key) => {
       const property = input[key];
-      const propertyContent: any[] = property instanceof Array ? property : [property];
+      const propertyContent: any[] =
+        property instanceof Array ? property : [property];
 
       for (const formItem of propertyContent) {
         const isFileType = formItem instanceof Blob || formItem instanceof File;
-        formData.append(key, isFileType ? formItem : this.stringifyFormItem(formItem));
+        formData.append(
+          key,
+          isFileType ? formItem : this.stringifyFormItem(formItem)
+        );
       }
 
       return formData;
@@ -364,11 +389,21 @@ export class HttpClient<SecurityDataType = unknown> {
     const requestParams = this.mergeRequestParams(params, secureParams);
     const responseFormat = format || this.format || undefined;
 
-    if (type === ContentType.FormData && body && body !== null && typeof body === "object") {
+    if (
+      type === ContentType.FormData &&
+      body &&
+      body !== null &&
+      typeof body === "object"
+    ) {
       body = this.createFormData(body as Record<string, unknown>);
     }
 
-    if (type === ContentType.Text && body && body !== null && typeof body !== "string") {
+    if (
+      type === ContentType.Text &&
+      body &&
+      body !== null &&
+      typeof body !== "string"
+    ) {
       body = JSON.stringify(body);
     }
 
@@ -376,7 +411,9 @@ export class HttpClient<SecurityDataType = unknown> {
       ...requestParams,
       headers: {
         ...(requestParams.headers || {}),
-        ...(type && type !== ContentType.FormData ? { "Content-Type": type } : {}),
+        ...(type && type !== ContentType.FormData
+          ? { "Content-Type": type }
+          : {}),
       },
       params: query,
       responseType: responseFormat,
@@ -390,7 +427,9 @@ export class HttpClient<SecurityDataType = unknown> {
  * @title Appiontment Api
  * @version v1
  */
-export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDataType> {
+export class Api<
+  SecurityDataType extends unknown
+> extends HttpClient<SecurityDataType> {
   login = {
     /**
      * No description
@@ -445,11 +484,47 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         userId?: string;
         token?: string;
       },
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<string, any>({
         path: `/Activation`,
         method: "GET",
+        query: query,
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+  };
+  completeRegistration = {
+    /**
+     * No description
+     *
+     * @tags Account
+     * @name CompleteRegistrationCreate
+     * @request POST:/complete-registration
+     * @secure
+     */
+    completeRegistrationCreate: (
+      query: {
+        /** @maxLength 150 */
+        FirstName: string;
+        /** @maxLength 150 */
+        LastName: string;
+        /** @maxLength 1500 */
+        Address?: string;
+        Gender: Gender;
+        /** @format date-time */
+        BirthDate: string;
+        /** @maxLength 10 */
+        NationalCode?: string;
+        /** @maxLength 11 */
+        PhoneNumber: string;
+      },
+      params: RequestParams = {}
+    ) =>
+      this.request<string, any>({
+        path: `/complete-registration`,
+        method: "POST",
         query: query,
         secure: true,
         format: "json",
@@ -472,7 +547,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         /** @maxLength 1500 */
         Body: string;
       },
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<void, any>({
         path: `/add-blog`,
@@ -491,7 +566,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request POST:/create-category
      * @secure
      */
-    createCategoryCreate: (data: CreateCategoryDto, params: RequestParams = {}) =>
+    createCategoryCreate: (
+      data: CreateCategoryDto,
+      params: RequestParams = {}
+    ) =>
       this.request<void, any>({
         path: `/create-category`,
         method: "POST",
@@ -514,7 +592,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       query?: {
         Title?: string;
       },
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<GetAllCategoriesDto[], any>({
         path: `/get-all-categories`,
@@ -541,7 +619,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         Title: string;
       },
       data: number,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<void, any>({
         path: `/edit-category/${id}`,
@@ -624,7 +702,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         /** @format int32 */
         PageSize?: number;
       },
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<GetAllCommentsDtoPagedList, any>({
         path: `/get-all-comments/${doctorId}`,
@@ -644,7 +722,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request POST:/register-doctor
      * @secure
      */
-    registerDoctorCreate: (data: RegisterDoctorDto, params: RequestParams = {}) =>
+    registerDoctorCreate: (
+      data: RegisterDoctorDto,
+      params: RequestParams = {}
+    ) =>
       this.request<string, any>({
         path: `/register-doctor`,
         method: "POST",
@@ -704,7 +785,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       query?: {
         Title?: string;
       },
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<GetAllCitiesDto[], any>({
         path: `/get-all-cities`,
@@ -734,7 +815,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         Insurance?: string;
         Category?: string;
       },
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<GetAllDoctorByBestRatingForTheSearchBarDtoPagedList, any>({
         path: `/get-best-doctor-by-highest-raing-for-search-bar`,
@@ -754,7 +835,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request POST:/register-doctor-work-plan
      * @secure
      */
-    registerDoctorWorkPlanCreate: (data: RegisterDoctorWorkPlaneDto, params: RequestParams = {}) =>
+    registerDoctorWorkPlanCreate: (
+      data: RegisterDoctorWorkPlaneDto,
+      params: RequestParams = {}
+    ) =>
       this.request<void, any>({
         path: `/register-doctor-work-plan`,
         method: "POST",
@@ -777,7 +861,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       query?: {
         Title?: string;
       },
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<GetAllInsurancesDto[], any>({
         path: `/get-all-insurances`,
@@ -802,7 +886,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         /** @format date-time */
         DayDate: string;
       },
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<GetPossibleSessionInDayForDoctorDto[], any>({
         path: `/get-possible-session`,

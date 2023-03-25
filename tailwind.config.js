@@ -5,7 +5,7 @@ module.exports = {
     extend: {
       spacing: {
         "sidebar-width": "16.25rem",
-        "navbar-height": "56px",
+        "navbar-height": "60px",
       },
       colors: {
         "base-white": "#FCF8E8",

@@ -3,6 +3,7 @@ import LoginRegister from "../pages/login-register";
 import Home from "../components/home";
 import NotFoundPage from "../pages/404";
 import RegisterDoc from "../pages/register-doc";
+import DocInfo from "../pages/doc-info";
 
 export type RouteType = {
   path: string;
@@ -49,6 +50,18 @@ export const routes: RouteType[] = [
         {/*<Helmet>*/}
         <title>ثبت اطلاعات</title>
         <RegisterDoc />
+        {/*</Helmet>*/}
+        {/*< />*/}
+      </>
+    ),
+  },
+  {
+    path: "/doc/:id",
+    element: (
+      <>
+        {/*<Helmet>*/}
+        <title>مشخصات دکتر</title>
+        <DocInfo />
         {/*</Helmet>*/}
         {/*< />*/}
       </>

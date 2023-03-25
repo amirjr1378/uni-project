@@ -19,6 +19,7 @@ const LoginForm = (props: Props) => {
   const { userType } = props;
 
   const [cookies, setCookies] = useCookies();
+
   const [isUserNew, setIsUserNew] = useState<boolean>(false);
   const [isShowConfirmPass, setIsShowConfirmPass] = useState<boolean>(false);
 
@@ -117,7 +118,7 @@ const LoginForm = (props: Props) => {
                 }}
                 // autoFocus
                 tabIndex={1}
-                label={"نام کاربری"}
+                label={"ایمیل"}
               />
               <FormikErrorMessage checkBlur={false} name={"userName"} />
             </div>
@@ -132,7 +133,7 @@ const LoginForm = (props: Props) => {
                 type={"password"}
                 tabIndex={2}
                 textClassName={"outline-0"}
-                label={"رمز"}
+                label={"کلمه عبور"}
               />
               <FormikErrorMessage name={"password"} checkBlur={false} />
             </div>
@@ -148,7 +149,7 @@ const LoginForm = (props: Props) => {
                   type={"password"}
                   tabIndex={2}
                   textClassName={"outline-0"}
-                  label={"تکرار رمز"}
+                  label={"تکرار کلمه عبور"}
                 />
                 <FormikErrorMessage name={"confirmPassword"} />
               </div>

@@ -34,6 +34,7 @@ const FormikCategoryAutoComplete = (prp: FormikCategoryAutoCompletePrp) => {
             value={field?.value}
             displayValue={(val) => val?.label}
             onChange={(payload) => {
+              console.log("sara", payload);
               meta?.setValue({
                 label: payload?.node?.title || undefined,
                 value: payload?.node?.id || undefined,
