@@ -1,5 +1,6 @@
 import LoginRegister from "../../login-register/components/LoginButton";
 import { useCookies } from "react-cookie";
+import MyProfile from "./my-profile";
 
 const Navbar = () => {
   const [cookies] = useCookies();
@@ -11,6 +12,8 @@ const Navbar = () => {
       }
     >
       {cookies.Auth ? null : <LoginRegister />}
+      {/*{cookies.Auth ? <ExitLink /> : null}*/}
+      {cookies.Auth ? <MyProfile /> : null}
     </div>
   );
 };

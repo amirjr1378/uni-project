@@ -2,7 +2,6 @@ import FetchData from "../../../components/FetchData";
 import BaseApi from "../../../api/Api";
 import { GetAllDoctorByBestRatingDto } from "../../../api/ApiGlobals";
 import woman from "../../../assets/pic/women1.jpg";
-import man from "../../../assets/pic/men1.jpg";
 import { LocationMarkerIcon } from "@heroicons/react/solid";
 
 const docs: GetAllDoctorByBestRatingDto[] = [
@@ -60,9 +59,13 @@ const HighestDoctors = () => {
               "w-full overflow-auto flex flex-nowrap py-4 px-[50px] gap-x-3 mx-3 h-full items-end "
             }
           >
-            {docs?.map((doc) => {
+            {data?.map((doc) => {
               return (
-                <div className={"relative bg-white rounded-3 w-[300px] p-5"}>
+                <div
+                  className={
+                    "relative bg-white rounded-3 w-[300px] p-5 hover:scale-105 cursor-pointer"
+                  }
+                >
                   <img
                     alt={"profile"}
                     src={woman}
