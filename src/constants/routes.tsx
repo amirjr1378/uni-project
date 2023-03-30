@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 import LoginRegister from "../pages/login-register";
-import Home from "../components/home";
+import Home from "../pages/home";
 import NotFoundPage from "../pages/404";
 import RegisterDoc from "../pages/register-doc";
 import DocInfo from "../pages/doc-info";

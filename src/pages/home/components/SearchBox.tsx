@@ -1,10 +1,9 @@
-import FormikCategoryAutoComplete from "../../components/formik/FormikCategoryAutoComplete";
+import FormikCategoryAutoComplete from "components/formik/FormikCategoryAutoComplete";
 import { Formik } from "formik";
-import FomrikBimehAutoComplete from "../../components/formik/FomriktBimehAutoComplete";
+import FomrikBimehAutoComplete from "components/formik/FomriktBimehAutoComplete";
 import { NewspaperIcon } from "@heroicons/react/outline";
 import { SearchIcon } from "@heroicons/react/solid";
-import FormikCityAutoComplete from "../../components/formik/FormikCityAutoComplete";
-// import FormikCityAutoComplete from "../../formik/FormikCityAutoComplete";
+import FormikCityAutoComplete from "components/formik/FormikCityAutoComplete";
 
 const SearchBox = () => {
   return (

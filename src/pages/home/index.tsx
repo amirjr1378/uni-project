@@ -1,10 +1,10 @@
-import bg from "./header.jpg";
-import SearchBox from "./SearchBox";
+import bg from "./assets/header.jpg";
+import SearchBox from "./components/SearchBox";
 import LoginRegister from "../login-register/components/LoginButton";
-import HighestDoctors from "./highest-doctors";
+import HighestDoctors from "./components/highest-doctors";
 import { useCookies } from "react-cookie";
 
-const Header = () => {
+const HomePage = () => {
   return (
     <>
       <div className={"h-screen w-screen overflow-x-hidden"}>
@@ -35,4 +35,4 @@ const Header = () => {
     </>
   );
 };
-export default Header;
+export default HomePage;

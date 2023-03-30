@@ -1,10 +1,10 @@
 import { Combobox, Transition } from "@headlessui/react";
 import { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../store";
-import { setDoctorType } from "../../store/search";
+import { RootState } from "store";
+import { setDoctorType } from "store/search";
 import { CheckIcon, SearchIcon } from "@heroicons/react/outline";
-import BaseApi from "../../api/Api";
+import BaseApi from "api/Api";
 import axios from "axios";
 
 const mockData: { label: string; key: number }[] = [
@@ -39,9 +39,9 @@ const DoctorTypAutocomplete = () => {
       >
         <div className="relative ">
           <div className="relative w-[300px] h-[50px] cursor-default overflow-hidden rounded-lg bg-white text-right shadow-md">
-            <Combobox.Button className=" h-full w-full flex items-center pr-2">
+            <Combobox.Button className="flex items-center w-full h-full pr-2 ">
               <div className={"h-full flex items-center w-full border-none"}>
-                <SearchIcon className=" w-7 text-gray-400" aria-hidden="true" />
+                <SearchIcon className="text-gray-400  w-7" aria-hidden="true" />
                 <Combobox.Input
                   className=" leading-5 h-full flex flex-1 outline-0 pr-2 border-none  text-gray-900 focus:ring-0 text-gray-500 text-[16px] rounded-lg"
                   onChange={(event) => setSearch(event.target.value)}
@@ -56,9 +56,9 @@ const DoctorTypAutocomplete = () => {
             leaveTo="opacity-0"
             afterLeave={() => setSearch("")}
           >
-            <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+            <Combobox.Options className="absolute w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
               {mockData?.length === 0 && search !== "" ? (
-                <div className="relative cursor-default select-none py-2 px-4 text-gray-700">
+                <div className="relative px-4 py-2 text-gray-700 cursor-default select-none">
                   Nothing found.
                 </div>
               ) : (
@@ -88,7 +88,7 @@ const DoctorTypAutocomplete = () => {
                               active ? "text-white" : "text-teal-600"
                             }`}
                           >
-                            <CheckIcon className="h-5 w-5" aria-hidden="true" />
+                            <CheckIcon className="w-5 h-5" aria-hidden="true" />
                           </span>
                         ) : null}
                       </>

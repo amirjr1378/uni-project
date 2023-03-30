@@ -1,7 +1,7 @@
-import FetchData from "../../../components/FetchData";
-import BaseApi from "../../../api/Api";
-import { GetAllDoctorByBestRatingDto } from "../../../api/ApiGlobals";
-import woman from "../../../assets/pic/women1.jpg";
+import FetchData from "components/FetchData";
+import BaseApi from "api/Api";
+import { GetAllDoctorByBestRatingDto } from "api/ApiGlobals";
+import woman from "assets/pic/women1.jpg";
 import { LocationMarkerIcon } from "@heroicons/react/solid";
 
 const docs: GetAllDoctorByBestRatingDto[] = [
