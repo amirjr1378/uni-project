@@ -7,9 +7,9 @@ import { useCookies } from "react-cookie";
 const HomePage = () => {
   return (
     <>
-      <div className={"h-screen w-screen overflow-x-hidden"}>
+      <div className={"h-screen w-screen overflow-hidden"}>
         <div
-          className={" absolute top-0 overflow-x-hidden "}
+          className={" absolute top-[56px] left-0 right-0 overflow-x-hidden "}
           style={{
             backgroundImage: `url(${bg})`,
             backgroundSize: "cover,contain",
@@ -21,13 +21,7 @@ const HomePage = () => {
             position: "relative",
           }}
         >
-          {/*--------------text-------------*/}
-
-          {/*--------------------search*/}
-          {/*<div className={" mt-4 inline bg-white flex h-[40px]"}>*/}
-          {/*<DoctorTypAutocomplete />*/}
           <SearchBox />
-          {/*</div>*/}
         </div>
       </div>
 

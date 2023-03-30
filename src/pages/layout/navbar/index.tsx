@@ -8,7 +8,7 @@ const Navbar = () => {
   return (
     <div
       className={
-        "fixed sticky w-full h-navbar-height p-3 px-5 shadow-2xl bg-white overflow-hidden"
+        "fixed w-full h-navbar-height p-3 px-5 shadow-2xl bg-dark-blue overflow-hidden z-20"
       }
     >
       {cookies.Auth ? null : <LoginRegister />}
