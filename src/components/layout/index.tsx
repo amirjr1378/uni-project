@@ -37,24 +37,21 @@ const Layout: FC<LayoutConfigProps> = ({
   return (
     <div
       className={cx(
-        "bg-[#E5E5E5] overflow-x-hidden min-h-screen bg-[#f5f5f7] max-w-[1920] ",
+        "overflow-x-hidden bg-[#f5f5f7] max-w-[1920] ",
         showSidebar && "pr-sidebar-width"
       )}
     >
-      {/*<Navbar {...navbarProps} />*/}
       <Navbar />
 
-      <div className={cx("flex")}>
-        {showSidebar && <Sidebar {...sidebarProps} />}
+      {showSidebar && <Sidebar {...sidebarProps} />}
 
-        <div className="  flex-1  ">
-          {title ? (
-            <p className="text-[#0D062D] text-3xl leading-[50px] pt-20 font-bold ">
-              {title}
-            </p>
-          ) : null}
-          <div className="  ">{children}</div>
-        </div>
+      <div className="flex flex-col">
+        {title ? (
+          <p className="text-[#0D062D] text-3xl leading-[50px] pt-20 font-bold ">
+            {title}
+          </p>
+        ) : null}
+        <>{children}</>
       </div>
     </div>
   );

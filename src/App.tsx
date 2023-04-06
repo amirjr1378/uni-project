@@ -8,8 +8,8 @@ import CheckForAuth from "./constants/checkForAuth";
 import Layout from "./components/layout";
 import { LoadingLoggedIdUser } from "./context/useLoggedInUser";
 import { SidebarProps } from "./components/layout/types/sidebar-props.type";
-// import "slick-carousel/slick/slick.css";
-// import "slick-carousel/slick/slick-theme.css";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const sidebarPrp: SidebarProps = {
   links: [
