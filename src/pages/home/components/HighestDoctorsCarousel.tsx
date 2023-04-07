@@ -4,8 +4,7 @@ import { GetAllDoctorByBestRatingDto } from "api/ApiGlobals";
 import woman from "assets/pic/women1.jpg";
 import { LocationMarkerIcon } from "@heroicons/react/solid";
 import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import { Link } from "react-router-dom";
 
 const docs: GetAllDoctorByBestRatingDto[] = [
   {
@@ -60,7 +59,10 @@ const HighestDoctors = () => {
           <Slider infinite rtl speed={400} slidesToShow={3} slidesToScroll={1}>
             {docs?.map((doc) => {
               return (
-                <div className="px-4 [direction:rtl] overflow-visible mt-12 mb-5">
+                <Link
+                  to={`/doctors/${doc.doctorId}`}
+                  className="px-4 [direction:rtl] overflow-visible mt-12 mb-5"
+                >
                   <div
                     className={
                       "relative bg-white rounded-3  p-5  transition-all hover:scale-105 cursor-pointer w-full overflow-visible"
@@ -99,7 +101,7 @@ const HighestDoctors = () => {
                       {doc?.address}
                     </div>
                   </div>
-                </div>
+                </Link>
               );
             })}
           </Slider>

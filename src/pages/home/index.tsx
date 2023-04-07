@@ -1,8 +1,6 @@
 import bg from "./assets/header.jpg";
 import SearchBox from "./components/SearchBox";
-import LoginRegister from "../login-register/components/LoginButton";
-import HighestDoctors from "./components/highest-doctors";
-import { useCookies } from "react-cookie";
+import HighestDoctors from "./components/HighestDoctorsCarousel";
 
 const HomePage = () => {
   return (
