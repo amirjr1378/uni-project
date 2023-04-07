@@ -60,7 +60,7 @@ const HighestDoctors = () => {
             {docs?.map((doc) => {
               return (
                 <Link
-                  to={`/doctors/${doc.doctorId}`}
+                  to={`/doc/${doc.doctorId}`}
                   className="px-4 [direction:rtl] overflow-visible mt-12 mb-5"
                 >
                   <div
