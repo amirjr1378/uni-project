@@ -20,7 +20,7 @@ const Layout: FC<LayoutConfigProps> = ({
   return (
     <div
       className={cx(
-        "overflow-x-hidden bg-[#f5f5f7] max-w-[1920] ",
+        "overflow-x-hidden max-w-[1920] ",
         showSidebar && "pr-sidebar-width"
       )}
     >
