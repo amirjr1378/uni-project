@@ -16,7 +16,7 @@ const SearchBox = () => {
             >
               <FormikCategoryAutoComplete
                 placeholder={"چه دکتری میخوای ؟"}
-                name={"city"}
+                name={"doctorType"}
                 className={"w-[300px] h-[60px] border-0 rounded-[4rem] "}
                 textClassName={"text-[18px] pr-[4rem] "}
               />

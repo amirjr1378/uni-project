@@ -7,7 +7,7 @@ const HomePage = () => {
     <>
       <div className={"h-screen w-screen overflow-hidden"}>
         <div
-          className={" absolute top-[56px] left-0 right-0 overflow-x-hidden "}
+          className={" absolute top-0 left-0 right-0 overflow-x-hidden "}
           style={{
             backgroundImage: `url(${bg})`,
             backgroundSize: "cover,contain",

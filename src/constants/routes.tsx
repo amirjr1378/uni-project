@@ -61,6 +61,7 @@ export const routes: RouteType[] = [
       <>
         {/*<Helmet>*/}
         <title>مشخصات دکتر</title>
+        <h1>amir</h1>
         <DocInfo />
         {/*</Helmet>*/}
         {/*< />*/}
